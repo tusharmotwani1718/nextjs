@@ -1,8 +1,13 @@
+import Post from '@/app/_components/Post'
 import React from 'react'
+
 
 function Login() {
   return (  
-    <div>Login Page</div>
+    <div>Login Page
+
+      <Post />
+    </div>
   ) 
 }
 
