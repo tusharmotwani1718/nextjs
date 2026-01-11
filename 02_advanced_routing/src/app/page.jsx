@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      Advanced Routing in Nextjs
+      Nested Routing in Nextjs
       
       <div className="my-3">
         <Link href={'/blog/123'}
