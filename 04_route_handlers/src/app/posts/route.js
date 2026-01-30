@@ -22,9 +22,25 @@ export const posts = [
 ]
 
 
-export async function GET() {
-    return NextResponse.json({
+export async function GET(request) {
+
+
+    const searchParams = request.nextUrl.searchParams;
+
+    const status = searchParams.get('status');
+
+    if(!status) {
+        return NextResponse.json({
         success: true,
         data: posts
     }, { status: 200 })
+    }
+
+    return NextResponse.json({
+        success: true,
+        data: posts.filter((post) => post.status == status)
+    }, {
+        status: 201
+    })
+    
 }
