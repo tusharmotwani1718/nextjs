@@ -39,7 +39,7 @@ const buttonVariants = cva(
 )
 
 function Button({
-  className = "bg-blue-500 font-bold outline-blue-300",
+  className = "",
   variant = "default",
   size = "default",
   asChild = false,
