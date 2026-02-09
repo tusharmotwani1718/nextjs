@@ -9,10 +9,15 @@ export async function getContact() {
 
         const contacts = await Contact.find().sort({ createdAt: -1 }).lean()
 
+        const serializedContacts = contacts.map((contact) => ({
+            ...contact,
+            _id: contact._id.toString(),
+        }));
+
         return {
             success: true,
             message: "Messages fetched successfully!",
-            data: contacts
+            data: serializedContacts
         }
 
     }
