@@ -13,6 +13,10 @@ const ContactSchema = new Schema({
     user_email: {
         type: String,
         required: true
+    },
+    isRead: {
+      type: Boolean,
+      default: false
     }
 }, {
     timestamps: true
