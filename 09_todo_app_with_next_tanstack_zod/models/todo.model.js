@@ -7,8 +7,9 @@ const TodoSchema = new Schema({
     },
     description: {
         type: String,
-        minLength: 5,
-        maxLength: 200
+        minLength: 15,
+        maxLength: 200,
+        required: false
     },
     priority: {
         type: String,
@@ -23,4 +24,4 @@ const TodoSchema = new Schema({
     timestamps: true
 })
 
-export const Todo = mongoose.models.Todo || mongoose.model("Todo", Todo);
+export const Todo = mongoose.models.Todo || mongoose.model("Todo", TodoSchema);
