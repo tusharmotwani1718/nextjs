@@ -22,8 +22,14 @@ const updateTodoValidator = z.object({
   newStatus: z.boolean()
 })
 
+// 3. delete todo:
+const deleteTodoValidator = z.object({
+  todoId: z.string()
+})
+
 
 export {
   addTodoValidator,
-  updateTodoValidator
+  updateTodoValidator,
+  deleteTodoValidator
 }

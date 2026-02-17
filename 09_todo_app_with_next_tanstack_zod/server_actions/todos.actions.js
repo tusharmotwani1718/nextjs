@@ -1,6 +1,6 @@
 "use server";
 
-import { addTodoValidator, updateTodoValidator } from "../validators/notes.validators.js";
+import { addTodoValidator, deleteTodoValidator, updateTodoValidator } from "../validators/notes.validators.js";
 import { Todo } from "../models/todo.model";
 
 async function createTodoAction(rawData) {
@@ -86,8 +86,40 @@ async function updateStatusAction(todoId, newStatus) {
   }
 }
 
+
+async function deleteStatusAction(todoId) {
+  try {
+    const parsed = deleteTodoValidator.safeParse({ todoId });
+
+
+    if (!parsed.success) {
+      // console.log(errors);
+
+      return {
+        success: false,
+        message: "Error validating todo",
+        errors: parsed.error.flatten().fieldErrors,
+      }
+    }
+
+
+    const todo = await Todo.findByIdAndDelete(todoId);
+
+    return {
+      success: true,
+      message: 'Todo deleted successfully!'
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: 'Error deleting todo'
+    }
+  }
+}
+
 export {
   fetchTodosAction,
   createTodoAction,
-  updateStatusAction
+  updateStatusAction,
+  deleteStatusAction
 }
