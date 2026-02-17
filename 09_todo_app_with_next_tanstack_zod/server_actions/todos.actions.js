@@ -1,6 +1,6 @@
 "use server";
 
-import { addTodoValidator } from "../validators/notes.validators.js";
+import { addTodoValidator, updateTodoValidator } from "../validators/notes.validators.js";
 import { Todo } from "../models/todo.model";
 
 async function createTodoAction(rawData) {
@@ -49,7 +49,45 @@ async function fetchTodosAction() {
   }
 }
 
+async function updateStatusAction(todoId, newStatus) {
+  try {
+
+    const parsed = updateTodoValidator.safeParse({ todoId, newStatus });
+
+    if (!parsed.success) {
+      return {
+        success: false,
+        message: "Validation failed",
+        errors: parsed.error.flatten().fieldErrors,
+      };
+    }
+
+    const updated = await Todo.findByIdAndUpdate(todoId, {
+      isCompleted: newStatus
+    });
+
+    if (!updated) {
+      return {
+        success: false,
+        message: 'Error updating status'
+      }
+    }
+
+    return {
+      success: true,
+      message: "Todo created successfully!",
+      data: JSON.parse(JSON.stringify(updated)), // important
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Failed to update todo",
+    };
+  }
+}
+
 export {
   fetchTodosAction,
-  createTodoAction
+  createTodoAction,
+  updateStatusAction
 }

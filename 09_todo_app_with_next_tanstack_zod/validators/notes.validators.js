@@ -16,6 +16,14 @@ const addTodoValidator = z.object({
 });
 
 
+// 2. update todo: 
+const updateTodoValidator = z.object({
+  todoId: z.string(),
+  newStatus: z.boolean()
+})
+
+
 export {
-  addTodoValidator
+  addTodoValidator,
+  updateTodoValidator
 }
