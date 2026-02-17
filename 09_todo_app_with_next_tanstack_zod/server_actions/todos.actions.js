@@ -2,9 +2,8 @@
 
 import { addTodoValidator } from "../validators/notes.validators.js";
 import { Todo } from "../models/todo.model";
-import z from "zod";
 
-export async function createTodoAction(rawData) {
+async function createTodoAction(rawData) {
   try {
     // 1️⃣ Validate incoming data
     const parsed = addTodoValidator.safeParse(rawData);
@@ -31,4 +30,26 @@ export async function createTodoAction(rawData) {
       message: "There was some error creating the todo.",
     };
   }
+}
+
+
+async function fetchTodosAction() {
+  try {
+    const todos = await Todo.find().sort({ createdAt: -1 }).lean();
+
+    return {
+      success: true,
+      data: JSON.parse(JSON.stringify(todos)),
+    };
+  } catch {
+    return {
+      success: false,
+      message: "Failed to fetch todos",
+    };
+  }
+}
+
+export {
+  fetchTodosAction,
+  createTodoAction
 }

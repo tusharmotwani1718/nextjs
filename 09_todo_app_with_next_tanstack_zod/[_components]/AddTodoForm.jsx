@@ -26,7 +26,7 @@ import {
 import { useForm, Controller } from "react-hook-form"
 import { createTodoAction } from "../server_actions/todos.actions.js";
 import { toast } from "sonner"
-import {  useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 
@@ -49,7 +49,7 @@ export default function AddTodoForm() {
   });
 
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const queryClient = useQuery();
+  const queryClient = useQueryClient();
 
   const handleAddTodo = async (data) => {
     const response = await createTodoAction(data);
