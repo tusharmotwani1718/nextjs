@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label"
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form"
 import { useState } from "react";
+import { authClient } from "@/lib/better-auth/auth-client.js";
 
 
 
@@ -34,22 +35,22 @@ export default function Login() {
     } = useForm();
 
     const onSubmit = async (inputData) => {
-        const { data, error } = await authClient.signUp.email({
-            name: inputData.name,
+        const { data, error } = await authClient.signIn.email({
             email: inputData.email,
             password: inputData.password,
-            phoneNumber: inputData.phoneNumber,
         }, {
             onRequest: (ctx) => {
                 console.log("ctx ", ctx);
                 setIsLoading(true)
             },
             onSuccess: (ctx) => {
-                alert("Account created successfully");
+                alert("Logged in successfully");
+                setIsLoading(false);
                 router.push("/dashboard");
             },
             onError: (ctx) => {
-                alert("Error creating account");
+                alert("Error logging in");
+                setIsLoading(false);
                 console.log("ctx ", ctx)
             }
         })
@@ -91,8 +92,8 @@ export default function Login() {
                                 <Input id="password" type="password" required {...register("password")} />
                             </div>
                         </div>
-                        <Button type="submit" className="w-full mt-4">
-                            Login
+                        <Button type="submit" className={`w-full mt-4`} disabled={isLoading}>
+                            {isLoading ? "Logging in..." : "Log in"}
                         </Button>
                     </form>
                 </CardContent>

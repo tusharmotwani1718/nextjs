@@ -5,11 +5,7 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 const client = new MongoClient(process.env.MONGODB_CONNECTION_URI);
 const db = client.db();
 
-console.log("ENV CHECK →", {
-  BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  NODE_ENV: process.env.NODE_ENV,
-});
+
 
 
 

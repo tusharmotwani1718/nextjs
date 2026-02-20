@@ -48,12 +48,14 @@ export default function Signup() {
             },
             onSuccess: (ctx) => {
                 alert("Account created successfully");
+                setIsLoading(false);
                 router.push("/dashboard");
             },
             onError: (ctx) => {
-                 alert("Error creating account"); 
+                 alert("Error creating account");
+                setIsLoading(false);
                  console.log("ctx ", ctx)  
-            }
+            },
         })
 
         console.log("data: ", data);
